@@ -6,12 +6,13 @@ abrir container com imagem php:8.3.1-apache
 docker cp /home/imply/Área\ de\ Trabalho/jogo_da_velha/index.php objective_roentgen:/var/www/html/index.php   
 
 docker exec -it objective_roentgen php /var/www/html/index.php
-   */
+  21:38 */
 
    require_once __DIR__.'/variaveis.php';
    require_once __DIR__.'/contantes.php';
    require_once __DIR__.'/getPlayersName.php';
    require_once __DIR__.'/buildBoard.php';
+   require_once __DIR__.'/showBoard.php';
 
 
 do {
@@ -23,17 +24,7 @@ do {
     $winner = null;
 
     while ($winner === null) {
-        echo <<<EOL
-
-             Posições: | Tabuleiro
-                       |
-               0|1|2   |   $board[0]|$board[1]|$board[2]
-               3|4|5   |   $board[3]|$board[4]|$board[5]
-               6|7|8   |   $board[6]|$board[7]|$board[8]
-
-
-            EOL
-        ;
+        echo showBoard($board);
 
         $position = (int) readline("Player {$player}, digite a sua posição: ");
 
