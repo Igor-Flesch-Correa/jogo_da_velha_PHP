@@ -1,24 +1,24 @@
 <?php
 
-/*      docker cp /home/imply/Área\ de\ Trabalho/jogo_da_velha/index.php objective_roentgen:/var/www/html/index.php   
+/*      
+abrir container com imagem php:8.3.1-apache
+
+docker cp /home/imply/Área\ de\ Trabalho/jogo_da_velha/index.php objective_roentgen:/var/www/html/index.php   
 
 docker exec -it objective_roentgen php /var/www/html/index.php
    */
 
    require_once __DIR__.'/variaveis.php';
    require_once __DIR__.'/contantes.php';
+   require_once __DIR__.'/getPlayersName.php';
+   require_once __DIR__.'/buildBoard.php';
+
 
 do {
-    $playerOne = readline('Player 1 (X) - Digite o seu nome: ');
-    $playerTwo = readline('Player 2 (O) - Digite o seu nome: ');
-
+    $players = getPlayersName();
     $player = 'X';
 
-    $board = [
-        '.', '.', '.',
-        '.', '.', '.',
-        '.', '.', '.',
-    ];
+    $board = buildBoard();
 
     $winner = null;
 
