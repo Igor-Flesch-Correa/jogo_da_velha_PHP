@@ -15,6 +15,10 @@ docker exec -it objective_roentgen php /var/www/html/index.php
    require_once __DIR__.'/showBoard.php';
    require_once __DIR__.'/isPosictionCorrect.php';
    require_once __DIR__.'/validate.php';
+   require_once __DIR__.'/isBoardFull.php';
+   require_once __DIR__.'/swapPlayer.php';
+   require_once __DIR__.'/showWinner.php';
+   require_once __DIR__.'/playAgain.php';
 
 
 #cuidar ondem de chamada por causa das dependencias
@@ -38,38 +42,25 @@ do {
 
         $board[$position] = $player;
 
-        if (validate($board, $player)) {#fiz diferente
+        if (validate($board, $player)) {#fiz diferente do exemplo, checar só o atual em vez dos 2 é mais pratico
             $winner = $player;
         }else {
             $winner = null;
         }
 
 
-        if (!in_array(BLANK_ICON, $board)) {#se tabuleiro cheio, break
+        if (isBoardFull($board)) {#se tabuleiro cheio, break
             break;
         }
 
-        if ($player === 'X') {
-            $player = 'O';
-        } else {
-            $player = 'X';
-        }
+        $player = swapPlayer($player);
     }
 
     echo showBoard($board);
 
-    if ($winner === 'X') {
-        echo "VENCEDOR: {$playerOne}.\n";
-    } elseif ($winner === 'O') {
-        echo "VENCEDOR: {$playerTwo}.\n";
-    } else {
-        echo "EMPATE.\n";
-    }
+    echo showWinner($winner,$players);
 
-    $playAgain = filter_var(
-        readline("\nDeseja jogar novamente? (true/false): "),
-        FILTER_VALIDATE_BOOLEAN
-    );
+    $playAgain = playAgain();
 
     echo "\n";
 } while ($playAgain === true);
