@@ -1,7 +1,7 @@
 <?php
 
 /*      
-abrir container com imagem php:8.3.1-apache
+abrir container com imagem 
 
 docker cp /home/imply/Área\ de\ Trabalho/jogo_da_velha/index.php objective_roentgen:/var/www/html/index.php   
 
